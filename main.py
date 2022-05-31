@@ -60,20 +60,19 @@ def plot():
         global plot1
         if len(date_entry.get()) == 0:
             tk.messagebox.showinfo(title="Error", message="Please enter date")
-
-           # tk.messagebox.showinfo(title="Error", message="Please enter date in correct format")
         else:
             #converting input to datetime object
             date = datetime(2009,int(month_entry.get()),int(date_entry.get()))
+            print(date)
             data_date_limited = data.loc[date]
+            print(data_date_limited)
             #plotting options
-            figure = plt.Figure(figsize=(3, 3), dpi=100)
-            ax = figure.add_subplot(100)
+            figure = plt.Figure(figsize=(3,3), dpi=100)
+            ax = figure.add_subplot(111)
             chart_type = FigureCanvasTkAgg(figure, window)
             chart_type.get_tk_widget().grid(column=2, row=3, columnspan=4,rowspan=14)
-            plot1 = data_date_limited.plot(x='Hour',y='NewIndoorTemp',kind='scatter', legend=True, ax=ax,color="red")
-            plot1 = data_date_limited.plot(x='Hour', y='DryBulp', kind='scatter', legend=True, ax=ax,color="blue")
-            ax.set_title('Air Temperatures')
+            plot1 = data_date_limited.plot(x='Hour',y='NewIndoorTemp',kind='scatter', legend=True)
+            ax.set_title('Indoor Air Temperatures')
 
 def export_plot():
     plot1.get_figure().savefig('plot.png')
@@ -88,7 +87,7 @@ window.title("Overheating Design Tool")
 window.geometry("600x540")
 
 #chart
-figure = plt.Figure(figsize=(2.7, 2.7), dpi=100)
+figure = plt.Figure(figsize=(3,3), dpi=100)
 ax = figure.add_subplot(111)
 chart_type = FigureCanvasTkAgg(figure, window)
 chart_type.get_tk_widget().grid(column=2, row=3, columnspan=4,rowspan=14)
